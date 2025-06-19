@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 export default function StartPage() {
   const navigate = useNavigate();
   return (
-    <div>
-      <h1>Smile Photobooth</h1>
-      <button onClick={() => navigate("/main")}>Start</button>
+    <div className="mainpage-container">
+      <h1 className="mainpage-title">Smile Photobooth</h1>
+      <div className="mainpage-buttons">
+        <button className="mainpage-btn" onClick={() => navigate("/main")}>Start</button>
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import MainPage from "./MainPage";
 import CameraPage from "./CameraPage";
 import GalleryPage from "./GalleryPage";
 import FinalPage from "./FinalPage";
+import './App.css';
 
 function App() {
   const [photo, setPhoto] = useState(null);
