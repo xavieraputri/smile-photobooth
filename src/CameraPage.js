@@ -14,7 +14,14 @@ export default function CameraPage({ setPhoto }) {
   useEffect(() => {
     async function getCamera() {
       try {
-        const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+        const s = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: 'user',
+            aspectRatio: 9/16,
+            width: { ideal: 1080, min: 720 },
+            height: { ideal: 1920, min: 1280 }
+          }
+        });
         setStream(s);
         videoRef.current.srcObject = s;
       } catch (err) {
@@ -29,8 +36,31 @@ export default function CameraPage({ setPhoto }) {
   }, []);
 
   const takePhoto = () => {
-    const ctx = canvasRef.current.getContext("2d");
-    ctx.drawImage(videoRef.current, 0, 0, 320, 540);
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    // Use the container's aspect ratio
+    const container = video.parentElement;
+    const containerAspect = container.clientWidth / container.clientHeight;
+    const videoAspect = video.videoWidth / video.videoHeight;
+    let sx, sy, sWidth, sHeight;
+    if (videoAspect > containerAspect) {
+      // Video is wider than container: crop sides
+      sHeight = video.videoHeight;
+      sWidth = Math.floor(sHeight * containerAspect);
+      sx = Math.floor((video.videoWidth - sWidth) / 2);
+      sy = 0;
+    } else {
+      // Video is taller than container: crop top/bottom
+      sWidth = video.videoWidth;
+      sHeight = Math.floor(sWidth / containerAspect);
+      sx = 0;
+      sy = Math.floor((video.videoHeight - sHeight) / 2);
+    }
+    // Set canvas pixel size to match the crop
+    canvas.width = sWidth;
+    canvas.height = sHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
     setCaptured(true);
   };
 
@@ -39,7 +69,9 @@ export default function CameraPage({ setPhoto }) {
   };
 
   const finish = () => {
-    const dataUrl = canvasRef.current.toDataURL("image/png");
+    const canvas = canvasRef.current;
+    // The canvas already has the video stream's native resolution
+    const dataUrl = canvas.toDataURL("image/png");
     setPhoto(dataUrl);
     navigate("/final");
   };
@@ -70,7 +102,14 @@ export default function CameraPage({ setPhoto }) {
           <>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#222', borderRadius: '32px', padding: '0rem', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', marginBottom: '0', width: '90%', height: '66.66%', maxWidth: '100%', maxHeight: '100%', justifyContent: 'center' }}>
               <video ref={videoRef} width="400" height="600" autoPlay style={{ width: '100%', height: '100%', borderRadius: '24px', background: '#000', objectFit: 'cover', marginBottom: '0rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)', display: captured ? 'none' : 'block' }} />
-              <canvas ref={canvasRef} width="320" height="540" style={{ width: '100%', height: '100%', display: captured ? "block" : "none", borderRadius: '24px', marginBottom: '0.5rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)' }} />
+              <canvas ref={canvasRef} style={{ 
+                width: videoRef.current ? videoRef.current.clientWidth : '100%',
+                height: videoRef.current ? videoRef.current.clientHeight : '100%',
+                display: captured ? "block" : "none", 
+                borderRadius: '24px', 
+                boxShadow: '0 2px 12px rgba(0,0,0,0.15)', 
+                background: '#000'
+              }} />
             </div>
             <div style={{ width: '70%', display: 'flex', justifyContent: 'center', marginBottom: '0.2rem' }}>
               {!captured ? (

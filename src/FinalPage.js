@@ -44,7 +44,22 @@ export default function FinalPage({ photo }) {
   return (
     <PhoneFrame>
       <h2 className="startpage-title">Your Photo</h2>
-      {photo && <img src={photo} alt="final" width="400" style={{ borderRadius: '8px', marginBottom: '1.5rem' }} />}
+      {photo && (
+        <img
+          src={photo}
+          alt="final"
+          style={{
+            display: 'block',
+            maxWidth: '100%',
+            maxHeight: '60vh',
+            height: 'auto',
+            width: 'auto',
+            borderRadius: '8px',
+            marginBottom: '1.5rem',
+            objectFit: 'contain'
+          }}
+        />
+      )}
       <div className="startpage-buttons-vertical">
         <button className="startpage-btn" onClick={savePhoto}>Save</button>
         <button className="startpage-btn" onClick={sharePhoto}>Share</button>
