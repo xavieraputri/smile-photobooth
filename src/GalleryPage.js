@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneFrame from "./PhoneFrame";
 import "./StartPage.css";
+import { playClickSound } from "./App";
 
 export default function GalleryPage({ setPhoto }) {
   const [preview, setPreview] = useState(null);
@@ -122,18 +123,21 @@ export default function GalleryPage({ setPhoto }) {
   };
 
   const zoomIn = () => {
+    playClickSound();
     if (imageScale < 3) {
       setImageScale(prev => Math.min(3, prev + 0.2));
     }
   };
 
   const zoomOut = () => {
+    playClickSound();
     if (imageScale > 0.5) {
       setImageScale(prev => Math.max(0.5, prev - 0.2));
     }
   };
 
   const retakePhoto = () => {
+    playClickSound();
     setPreview(null);
     setSelected(false);
     setImagePosition({ x: 0, y: 0 });
@@ -142,6 +146,7 @@ export default function GalleryPage({ setPhoto }) {
   };
 
   const finish = () => {
+    playClickSound();
     if (!preview || !imageRef.current) return;
     
     // Create a canvas to crop the image
@@ -176,6 +181,16 @@ export default function GalleryPage({ setPhoto }) {
     };
     
     img.src = preview;
+  };
+
+  const handleChooseClick = () => {
+    playClickSound();
+    fileInputRef.current && fileInputRef.current.click();
+  };
+
+  const handleBackClick = () => {
+    playClickSound();
+    navigate("/main");
   };
 
   return (
@@ -305,7 +320,7 @@ export default function GalleryPage({ setPhoto }) {
                 onChange={handleFile}
                 style={{ display: 'none' }}
               />
-              <button className="startpage-btn" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+              <button className="startpage-btn" onClick={handleChooseClick}>
                 Choose
               </button>
             </>
@@ -317,7 +332,7 @@ export default function GalleryPage({ setPhoto }) {
         <button
           className="startpage-btn"
           style={{ position: 'absolute', left: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
-          onClick={() => navigate("/main")}
+          onClick={handleBackClick}
         >
           Back
         </button>

@@ -2,11 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneFrame from "./PhoneFrame";
 import "./StartPage.css";
+import { playClickSound } from "./App";
 
 export default function FinalPage({ photo }) {
   const navigate = useNavigate();
 
   const savePhoto = () => {
+    playClickSound();
     const a = document.createElement("a");
     a.href = photo;
     a.download = "photobooth.png";
@@ -14,6 +16,7 @@ export default function FinalPage({ photo }) {
   };
 
   const sharePhoto = async () => {
+    playClickSound();
     if (navigator.share) {
       try {
         const res = await fetch(photo);
@@ -41,6 +44,11 @@ export default function FinalPage({ photo }) {
     }
   };
 
+  const handleRestartClick = () => {
+    playClickSound();
+    navigate("/");
+  };
+
   return (
     <PhoneFrame>
       <h2 className="startpage-title">Your Photo</h2>
@@ -63,7 +71,7 @@ export default function FinalPage({ photo }) {
       <div className="startpage-buttons-vertical">
         <button className="startpage-btn" onClick={savePhoto}>Save</button>
         <button className="startpage-btn" onClick={sharePhoto}>Share</button>
-        <button className="startpage-btn" onClick={() => navigate("/")}>Restart</button>
+        <button className="startpage-btn" onClick={handleRestartClick}>Restart</button>
       </div>
     </PhoneFrame>
   );

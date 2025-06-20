@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneFrame from "./PhoneFrame";
 import "./StartPage.css";
+import { playClickSound } from "./App";
 
 export default function CameraPage({ setPhoto }) {
   const videoRef = useRef(null);
@@ -36,11 +37,14 @@ export default function CameraPage({ setPhoto }) {
   }, []);
 
   const takePhoto = () => {
+    playClickSound();
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    // Use the container's aspect ratio
+    // Use the container's pixel size
     const container = video.parentElement;
-    const containerAspect = container.clientWidth / container.clientHeight;
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const containerAspect = containerWidth / containerHeight;
     const videoAspect = video.videoWidth / video.videoHeight;
     let sx, sy, sWidth, sHeight;
     if (videoAspect > containerAspect) {
@@ -56,24 +60,31 @@ export default function CameraPage({ setPhoto }) {
       sx = 0;
       sy = Math.floor((video.videoHeight - sHeight) / 2);
     }
-    // Set canvas pixel size to match the crop
-    canvas.width = sWidth;
-    canvas.height = sHeight;
+    // Set canvas pixel size to match the container
+    canvas.width = containerWidth;
+    canvas.height = containerHeight;
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, sWidth, sHeight);
+    ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, containerWidth, containerHeight);
     setCaptured(true);
   };
 
   const retakePhoto = () => {
+    playClickSound();
     setCaptured(false);
   };
 
   const finish = () => {
+    playClickSound();
     const canvas = canvasRef.current;
     // The canvas already has the video stream's native resolution
     const dataUrl = canvas.toDataURL("image/png");
     setPhoto(dataUrl);
     navigate("/final");
+  };
+
+  const handleBackClick = () => {
+    playClickSound();
+    navigate("/main");
   };
 
   return (
@@ -103,10 +114,11 @@ export default function CameraPage({ setPhoto }) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#222', borderRadius: '32px', padding: '0rem', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', marginBottom: '0', width: '90%', height: '66.66%', maxWidth: '100%', maxHeight: '100%', justifyContent: 'center' }}>
               <video ref={videoRef} width="400" height="600" autoPlay style={{ width: '100%', height: '100%', borderRadius: '24px', background: '#000', objectFit: 'cover', marginBottom: '0rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)', display: captured ? 'none' : 'block' }} />
               <canvas ref={canvasRef} style={{ 
-                width: videoRef.current ? videoRef.current.clientWidth : '100%',
-                height: videoRef.current ? videoRef.current.clientHeight : '100%',
+                width: '100%', 
+                height: '100%', 
                 display: captured ? "block" : "none", 
                 borderRadius: '24px', 
+                marginBottom: '0.5rem', 
                 boxShadow: '0 2px 12px rgba(0,0,0,0.15)', 
                 background: '#000'
               }} />
@@ -122,7 +134,7 @@ export default function CameraPage({ setPhoto }) {
             <button
               className="startpage-btn"
               style={{ position: 'absolute', left: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
-              onClick={() => navigate("/main")}
+              onClick={handleBackClick}
             >
               Back
             </button>
