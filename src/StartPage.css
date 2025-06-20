@@ -73,18 +73,37 @@ body {
   font-size: 1.8rem;
   padding: 0.6em 2em;
   border: none;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(44,50,83,0.10);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(44,50,83,0.15), 0 2px 8px rgba(44,50,83,0.08);
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 2em;
   min-width: 140px;
   min-height: 25px;
+  position: relative;
+  overflow: hidden;
+  animation: buttonPulse 3s ease-in-out infinite;
 }
 
 .startpage-btn:hover {
   background: #355a38;
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(44,50,83,0.25), 0 4px 12px rgba(44,50,83,0.12);
+  animation: none;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.startpage-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  transition: all 0.1s ease;
 }
 
 /* Decorative asset positions inside phone-frame */
@@ -123,4 +142,17 @@ body {
   gap: 1.2em;
   width: 100%;
   margin-top: 2em;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.title-float {
+  animation: titleFloat 3s ease-in-out infinite;
 } 

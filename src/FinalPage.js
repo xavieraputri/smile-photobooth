@@ -49,58 +49,174 @@ export default function FinalPage({ photo }) {
     navigate("/");
   };
 
+  const handleBackClick = () => {
+    playClickSound();
+    navigate("/gallery");
+  };
+
   return (
     <PhoneFrame>
-      <h2 className="startpage-title">Your Photo</h2>
-      {photo && (
-        <img
-          src={photo}
-          alt="final"
-          style={{
-            display: 'block',
-            maxWidth: '100%',
-            maxHeight: '60vh',
-            height: 'auto',
-            width: 'auto',
-            borderRadius: '8px',
-            marginBottom: '1.5rem',
-            objectFit: 'contain'
-          }}
-        />
-      )}
-      <div className="startpage-buttons-vertical">
-        <button 
-          className="startpage-btn" 
-          onClick={savePhoto}
-          style={{
-            fontSize: '1.5rem',
-            padding: '0.7em 2em',
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "url('/assets/WhiteCrumpled.png') center center/cover no-repeat",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          position: "relative",
+          paddingTop: "2.5vh"
+        }}
+      >
+        {/* Final photo preview area */}
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          background: '#222', 
+          borderRadius: '32px', 
+          padding: '0rem 0rem', 
+          boxShadow: '0 4px 24px rgba(0,0,0,0.10)', 
+          marginBottom: '0', 
+          width: '90%', 
+          height: '66.66%', 
+          maxWidth: '100%', 
+          maxHeight: '100%', 
+          justifyContent: 'center',
+          overflow: 'hidden',
+          position: 'relative'
+        }}>
+          {photo && (
+            <img
+              src={photo}
+              alt="final"
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '24px',
+                objectFit: 'contain',
+                background: '#000',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.15)',
+                userSelect: 'none',
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }}
+            />
+          )}
+        </div>
+        
+        {/* Restart button below image */}
+        <div style={{ width: '70%', display: 'flex', justifyContent: 'center', marginBottom: '1.0rem', marginTop: '-1.0rem', gap: '1rem' }}>
+          <button 
+            className="startpage-btn" 
+            onClick={handleRestartClick}
+            style={{
+              fontSize: '1.4rem',
+              padding: '0.7em 2em',
+              minHeight: '25px',
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            Restart
+          </button>
+          <button 
+            className="startpage-btn" 
+            onClick={() => {}} // Empty function for coming soon
+            style={{
+              fontSize: '1.4rem',
+              padding: '0.7em 2em',
+              minHeight: '25px',
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'visible'
+            }}
+          >
+            Decorate
+            <span style={{
+              position: 'absolute',
+              top: '-6px',
+              right: '-6px',
+              background: '#ff6b6b',
+              color: 'white',
+              fontSize: '0.7rem',
+              padding: '2px 6px',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            }}>
+              SOON
+            </span>
+          </button>
+        </div>
+        
+        {/* Absolute positioned bottom buttons */}
+        <button
+          className="startpage-btn"
+          style={{ 
+            position: 'absolute', 
+            left: '10%', 
+            bottom: '2.5%', 
+            width: '20%', 
+            minWidth: 80, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textAlign: 'center',
+            fontSize: '1.3rem',
+            padding: '0.6em 1.5em',
             minHeight: '25px'
           }}
+          onClick={handleBackClick}
+        >
+          Back
+        </button>
+        <button
+          className="startpage-btn"
+          style={{ 
+            position: 'absolute', 
+            left: '38%', 
+            bottom: '2.5%', 
+            width: '20%', 
+            minWidth: 90, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textAlign: 'center',
+            fontSize: '1.3rem',
+            padding: '0.6em 1.5em',
+            minHeight: '25px'
+          }}
+          onClick={savePhoto}
         >
           Save
         </button>
-        <button 
-          className="startpage-btn" 
-          onClick={sharePhoto}
-          style={{
-            fontSize: '1.5rem',
-            padding: '0.7em 2em',
+        <button
+          className="startpage-btn"
+          style={{ 
+            position: 'absolute', 
+            right: '7%', 
+            bottom: '2.5%', 
+            width: '20%', 
+            minWidth: 90, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textAlign: 'center',
+            fontSize: '1.3rem',
+            padding: '0.6em 1.5em',
             minHeight: '25px'
           }}
+          onClick={sharePhoto}
         >
           Share
-        </button>
-        <button 
-          className="startpage-btn" 
-          onClick={handleRestartClick}
-          style={{
-            fontSize: '1.5rem',
-            padding: '0.7em 2em',
-            minHeight: '25px'
-          }}
-        >
-          Restart
         </button>
       </div>
     </PhoneFrame>

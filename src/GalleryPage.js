@@ -159,21 +159,55 @@ export default function GalleryPage({ setPhoto }) {
       const containerRect = container.getBoundingClientRect();
       const imageRect = imageRef.current.getBoundingClientRect();
       
-      // Set canvas size to match the crop area
+      // Set canvas size to match the container (crop area)
       canvas.width = containerRect.width;
       canvas.height = containerRect.height;
       
-      // Calculate the crop area considering scale and position
-      const scaleX = img.width / imageRect.width;
-      const scaleY = img.height / imageRect.height;
+      // Get the original image dimensions
+      const originalWidth = img.naturalWidth;
+      const originalHeight = img.naturalHeight;
       
+      // Calculate the displayed image dimensions (after object-fit: contain)
+      const containerAspect = containerRect.width / containerRect.height;
+      const imageAspect = originalWidth / originalHeight;
+      
+      let displayedWidth, displayedHeight;
+      if (imageAspect > containerAspect) {
+        // Image is wider than container - fit to width
+        displayedWidth = containerRect.width;
+        displayedHeight = containerRect.width / imageAspect;
+      } else {
+        // Image is taller than container - fit to height
+        displayedHeight = containerRect.height;
+        displayedWidth = containerRect.height * imageAspect;
+      }
+      
+      // Calculate the scale factor between original image and displayed image
+      const scaleX = originalWidth / displayedWidth;
+      const scaleY = originalHeight / displayedHeight;
+      
+      // Calculate the visible portion of the image considering zoom and position
+      const visibleWidth = containerRect.width / imageScale;
+      const visibleHeight = containerRect.height / imageScale;
+      
+      // Calculate the crop coordinates in the original image space
       const cropX = (-imagePosition.x / imageScale) * scaleX;
       const cropY = (-imagePosition.y / imageScale) * scaleY;
-      const cropWidth = (containerRect.width / imageScale) * scaleX;
-      const cropHeight = (containerRect.height / imageScale) * scaleY;
+      const cropWidth = visibleWidth * scaleX;
+      const cropHeight = visibleHeight * scaleY;
+      
+      // Ensure crop coordinates are within bounds
+      const finalCropX = Math.max(0, Math.min(originalWidth - cropWidth, cropX));
+      const finalCropY = Math.max(0, Math.min(originalHeight - cropHeight, cropY));
+      const finalCropWidth = Math.min(cropWidth, originalWidth - finalCropX);
+      const finalCropHeight = Math.min(cropHeight, originalHeight - finalCropY);
       
       // Draw the cropped portion
-      ctx.drawImage(img, cropX, cropY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(
+        img, 
+        finalCropX, finalCropY, finalCropWidth, finalCropHeight, 
+        0, 0, canvas.width, canvas.height
+      );
       
       const croppedDataUrl = canvas.toDataURL('image/png');
       setPhoto(croppedDataUrl);
@@ -274,9 +308,9 @@ export default function GalleryPage({ setPhoto }) {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '50%',
-                width: '35px',
-                height: '35px',
-                fontSize: '1.1rem',
+                width: '30px',
+                height: '30px',
+                fontSize: '1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -295,9 +329,9 @@ export default function GalleryPage({ setPhoto }) {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '50%',
-                width: '35px',
-                height: '35px',
-                fontSize: '1.1rem',
+                width: '30px',
+                height: '30px',
+                fontSize: '1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -324,8 +358,8 @@ export default function GalleryPage({ setPhoto }) {
                 className="startpage-btn" 
                 onClick={handleChooseClick}
                 style={{
-                  fontSize: '1.5rem',
-                  padding: '0.7em 2em',
+                  fontSize: '1.3rem',
+                  padding: '0.6em 1.8em',
                   minHeight: '25px'
                 }}
               >
@@ -337,8 +371,8 @@ export default function GalleryPage({ setPhoto }) {
               className="startpage-btn" 
               onClick={retakePhoto}
               style={{
-                fontSize: '1.5rem',
-                padding: '0.7em 2em',
+                fontSize: '1.3rem',
+                padding: '0.6em 1.8em',
                 minHeight: '25px'
               }}
             >
@@ -351,16 +385,16 @@ export default function GalleryPage({ setPhoto }) {
           className="startpage-btn"
           style={{ 
             position: 'absolute', 
-            left: '2.5%', 
+            left: '8%', 
             bottom: '2.5%', 
-            width: '28%', 
+            width: '22%', 
             minWidth: 90, 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center', 
             textAlign: 'center',
-            fontSize: '1.5rem',
-            padding: '0.7em 2em',
+            fontSize: '1.3rem',
+            padding: '0.6em 1.8em',
             minHeight: '25px'
           }}
           onClick={handleBackClick}
@@ -371,16 +405,16 @@ export default function GalleryPage({ setPhoto }) {
           className="startpage-btn"
           style={{ 
             position: 'absolute', 
-            right: '2.5%', 
+            right: '8%', 
             bottom: '2.5%', 
-            width: '28%', 
+            width: '22%', 
             minWidth: 90, 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center', 
             textAlign: 'center',
-            fontSize: '1.5rem',
-            padding: '0.7em 2em',
+            fontSize: '1.3rem',
+            padding: '0.6em 1.8em',
             minHeight: '25px'
           }}
           onClick={finish}

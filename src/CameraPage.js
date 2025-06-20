@@ -128,8 +128,8 @@ export default function CameraPage({ setPhoto }) {
                   className="startpage-btn" 
                   onClick={takePhoto}
                   style={{
-                    fontSize: '1.5rem',
-                    padding: '0.7em 2em',
+                    fontSize: '1.3rem',
+                    padding: '0.6em 1.8em',
                     minHeight: '25px'
                   }}
                 >
@@ -140,8 +140,8 @@ export default function CameraPage({ setPhoto }) {
                   className="startpage-btn" 
                   onClick={retakePhoto}
                   style={{
-                    fontSize: '1.5rem',
-                    padding: '0.7em 2em',
+                    fontSize: '1.3rem',
+                    padding: '0.6em 1.8em',
                     minHeight: '25px'
                   }}
                 >
@@ -154,16 +154,16 @@ export default function CameraPage({ setPhoto }) {
               className="startpage-btn"
               style={{ 
                 position: 'absolute', 
-                left: '2.5%', 
+                left: '8%', 
                 bottom: '2.5%', 
-                width: '28%', 
+                width: '22%', 
                 minWidth: 90, 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
                 textAlign: 'center',
-                fontSize: '1.5rem',
-                padding: '0.7em 2em',
+                fontSize: '1.3rem',
+                padding: '0.6em 1.8em',
                 minHeight: '25px'
               }}
               onClick={handleBackClick}
@@ -174,16 +174,16 @@ export default function CameraPage({ setPhoto }) {
               className="startpage-btn"
               style={{ 
                 position: 'absolute', 
-                right: '2.5%', 
+                right: '8%', 
                 bottom: '2.5%', 
-                width: '28%', 
+                width: '22%', 
                 minWidth: 90, 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
                 textAlign: 'center',
-                fontSize: '1.5rem',
-                padding: '0.7em 2em',
+                fontSize: '1.3rem',
+                padding: '0.6em 1.8em',
                 minHeight: '25px'
               }}
               onClick={finish}

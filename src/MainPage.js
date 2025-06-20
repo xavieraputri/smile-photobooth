@@ -29,6 +29,7 @@ export default function MainPage() {
         <img 
           src="/assets/Title.png" 
           alt="Title" 
+          className="title-float"
           style={{ 
             maxWidth: '95%', 
             height: 'auto',
