@@ -12,7 +12,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #faf7de;
+  background: none;
 }
 
 .phone-frame {
@@ -21,7 +21,7 @@ body {
   height: 750px;
   max-width: 95vw;
   max-height: 95vh;
-  background: #fff;
+  background: none;
   border-radius: 36px;
   box-shadow: 0 8px 32px rgba(44,50,83,0.18), 0 1.5px 8px rgba(44,50,83,0.10);
   overflow: hidden;

@@ -45,30 +45,59 @@ export default function CameraPage({ setPhoto }) {
   };
 
   return (
+    // Camera Screen
     <PhoneFrame>
-      <h2 className="startpage-title">Camera</h2>
-      {permissionDenied ? (
-        <div style={{ color: "#b00", textAlign: "center", margin: "2em 0" }}>
-          Camera access was denied.<br />
-          Please allow camera access to use this feature.
-        </div>
-      ) : (
-        <>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#222', borderRadius: '32px', padding: '2rem 1rem', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', marginBottom: '2rem', width: '340px', maxWidth: '90vw' }}>
-            <video ref={videoRef} width="320" height="540" autoPlay style={{ borderRadius: '24px', background: '#000', objectFit: 'cover', marginBottom: '1rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)', display: captured ? 'none' : 'block' }} />
-            <canvas ref={canvasRef} width="320" height="540" style={{ display: captured ? "block" : "none", borderRadius: '24px', marginBottom: '1rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)' }} />
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "url('/assets/WhiteCrumpled.png') center center/cover no-repeat",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          position: "relative",
+          paddingTop: "2.5vh"
+        }}
+      >
+        {/* <h2 className="startpage-title">Camera</h2> */}
+        {permissionDenied ? (
+          <div style={{ color: "#b00", textAlign: "center", margin: "2em 0" }}>
+            Camera access was denied.<br />
+            Please allow camera access to use this feature.
           </div>
-          <div className="startpage-buttons-vertical">
-            <button className="startpage-btn" onClick={() => navigate("/main")}>Back</button>
-            {!captured ? (
-              <button className="startpage-btn" onClick={takePhoto}>Take Photo</button>
-            ) : (
-              <button className="startpage-btn" onClick={retakePhoto}>Retake Photo</button>
-            )}
-            <button className="startpage-btn" onClick={finish} disabled={!captured}>Finish</button>
-          </div>
-        </>
-      )}
+        ) : (
+          <>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', background: '#222', borderRadius: '32px', padding: '0rem', boxShadow: '0 4px 24px rgba(0,0,0,0.10)', marginBottom: '0', width: '90%', height: '66.66%', maxWidth: '100%', maxHeight: '100%', justifyContent: 'center' }}>
+              <video ref={videoRef} width="400" height="600" autoPlay style={{ width: '100%', height: '100%', borderRadius: '24px', background: '#000', objectFit: 'cover', marginBottom: '0rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)', display: captured ? 'none' : 'block' }} />
+              <canvas ref={canvasRef} width="320" height="540" style={{ width: '100%', height: '100%', display: captured ? "block" : "none", borderRadius: '24px', marginBottom: '0.5rem', boxShadow: '0 2px 12px rgba(0,0,0,0.15)' }} />
+            </div>
+            <div style={{ width: '70%', display: 'flex', justifyContent: 'center', marginBottom: '0.2rem' }}>
+              {!captured ? (
+                <button className="startpage-btn" onClick={takePhoto}>Take Photo</button>
+              ) : (
+                <button className="startpage-btn" onClick={retakePhoto}>Retake Photo</button>
+              )}
+            </div>
+            {/* Absolute positioned bottom buttons */}
+            <button
+              className="startpage-btn"
+              style={{ position: 'absolute', left: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+              onClick={() => navigate("/main")}
+            >
+              Back
+            </button>
+            <button
+              className="startpage-btn"
+              style={{ position: 'absolute', right: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+              onClick={finish}
+              disabled={!captured}
+            >
+              Finish
+            </button>
+          </>
+        )}
+      </div>
     </PhoneFrame>
   );
 }
