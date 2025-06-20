@@ -157,63 +157,66 @@ export default function GalleryPage({ setPhoto }) {
     img.onload = () => {
       const container = imageRef.current.parentElement;
       const containerRect = container.getBoundingClientRect();
-      const imageRect = imageRef.current.getBoundingClientRect();
-      
-      // Set canvas size to match the container (crop area)
-      canvas.width = containerRect.width;
-      canvas.height = containerRect.height;
-      
-      // Get the original image dimensions
       const originalWidth = img.naturalWidth;
       const originalHeight = img.naturalHeight;
-      
-      // Calculate the displayed image dimensions (after object-fit: contain)
-      const containerAspect = containerRect.width / containerRect.height;
+      const containerWidth = containerRect.width;
+      const containerHeight = containerRect.height;
+      const containerAspect = containerWidth / containerHeight;
       const imageAspect = originalWidth / originalHeight;
-      
+
+      // Calculate displayed image size (object-fit: contain)
       let displayedWidth, displayedHeight;
       if (imageAspect > containerAspect) {
-        // Image is wider than container - fit to width
-        displayedWidth = containerRect.width;
-        displayedHeight = containerRect.width / imageAspect;
+        displayedWidth = containerWidth;
+        displayedHeight = containerWidth / imageAspect;
       } else {
-        // Image is taller than container - fit to height
-        displayedHeight = containerRect.height;
-        displayedWidth = containerRect.height * imageAspect;
+        displayedHeight = containerHeight;
+        displayedWidth = containerHeight * imageAspect;
       }
-      
-      // Calculate the scale factor between original image and displayed image
+
+      // Calculate offset of displayed image inside container (centered)
+      const offsetX = (containerWidth - displayedWidth) / 2;
+      const offsetY = (containerHeight - displayedHeight) / 2;
+
+      // The visible area in the displayed image (after zoom and pan)
+      // The image is scaled by imageScale and translated by imagePosition
+      // The container shows a window of size containerWidth x containerHeight
+      // We need to map this window back to the original image coordinates
+
+      // The top-left of the visible area in the displayed image
+      const visibleX = (-imagePosition.x - offsetX) / imageScale;
+      const visibleY = (-imagePosition.y - offsetY) / imageScale;
+      const visibleW = containerWidth / imageScale;
+      const visibleH = containerHeight / imageScale;
+
+      // Map visible area in displayed image to original image coordinates
       const scaleX = originalWidth / displayedWidth;
       const scaleY = originalHeight / displayedHeight;
-      
-      // Calculate the visible portion of the image considering zoom and position
-      const visibleWidth = containerRect.width / imageScale;
-      const visibleHeight = containerRect.height / imageScale;
-      
-      // Calculate the crop coordinates in the original image space
-      const cropX = (-imagePosition.x / imageScale) * scaleX;
-      const cropY = (-imagePosition.y / imageScale) * scaleY;
-      const cropWidth = visibleWidth * scaleX;
-      const cropHeight = visibleHeight * scaleY;
-      
-      // Ensure crop coordinates are within bounds
-      const finalCropX = Math.max(0, Math.min(originalWidth - cropWidth, cropX));
-      const finalCropY = Math.max(0, Math.min(originalHeight - cropHeight, cropY));
-      const finalCropWidth = Math.min(cropWidth, originalWidth - finalCropX);
-      const finalCropHeight = Math.min(cropHeight, originalHeight - finalCropY);
-      
-      // Draw the cropped portion
+      const cropX = visibleX * scaleX;
+      const cropY = visibleY * scaleY;
+      const cropW = visibleW * scaleX;
+      const cropH = visibleH * scaleY;
+
+      // Clamp crop area to image bounds
+      const finalCropX = Math.max(0, Math.min(originalWidth - cropW, cropX));
+      const finalCropY = Math.max(0, Math.min(originalHeight - cropH, cropY));
+      const finalCropW = Math.min(cropW, originalWidth - finalCropX);
+      const finalCropH = Math.min(cropH, originalHeight - finalCropY);
+
+      // Set canvas size to match the crop area (container)
+      canvas.width = containerWidth;
+      canvas.height = containerHeight;
+
       ctx.drawImage(
-        img, 
-        finalCropX, finalCropY, finalCropWidth, finalCropHeight, 
+        img,
+        finalCropX, finalCropY, finalCropW, finalCropH,
         0, 0, canvas.width, canvas.height
       );
-      
+
       const croppedDataUrl = canvas.toDataURL('image/png');
       setPhoto(croppedDataUrl);
       navigate("/final");
     };
-    
     img.src = preview;
   };
 
