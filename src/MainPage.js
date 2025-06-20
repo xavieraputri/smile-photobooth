@@ -23,8 +23,8 @@ export default function MainPage() {
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        gap: '-2rem',
-        marginTop: '-6rem'
+        gap: '0rem',
+        marginTop: '-8rem'
       }}>
         <img 
           src="/assets/Title.png" 
@@ -33,7 +33,17 @@ export default function MainPage() {
           style={{ 
             maxWidth: '95%', 
             height: 'auto',
-            marginBottom: '0.5rem'
+            marginBottom: '0rem'
+          }} 
+        />
+        <img 
+          src="/assets/xaviera.png" 
+          alt="by xaviera" 
+          style={{ 
+            maxWidth: '40%', 
+            height: 'auto',
+            marginTop: '0.5rem',
+            marginBottom: '0rem'
           }} 
         />
         <div className="startpage-buttons-vertical">
@@ -42,7 +52,8 @@ export default function MainPage() {
             onClick={handleCameraClick}
             style={{
               fontSize: '1.5rem',
-              padding: '0.7em 2em',
+              padding: '0.6em 2em',
+              marginTop: '0.8rem',
               minHeight: '25px'
             }}
           >

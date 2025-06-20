@@ -18,7 +18,7 @@ export default function StartPage() {
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        gap: '5rem',
+        gap: '2rem',
         marginTop: '-14rem',
         marginBottom: '-5rem'
       }}>
@@ -29,7 +29,17 @@ export default function StartPage() {
           style={{ 
             maxWidth: '95%', 
             height: 'auto',
-            marginBottom: '0.5rem'
+            marginBottom: '0rem'
+          }} 
+        />
+        <img 
+          src="/assets/xaviera.png" 
+          alt="by xaviera" 
+          style={{ 
+            maxWidth: '40%', 
+            height: 'auto',
+            marginBottom: '-0.5rem',
+            marginTop: '-0.5rem',
           }} 
         />
         <button className="startpage-btn" onClick={handleStartClick}>Start</button>
