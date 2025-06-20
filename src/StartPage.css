@@ -70,14 +70,16 @@ body {
   background: #426B46;
   color: #fff;
   font-family: 'Instrument Serif', serif;
-  font-size: 1.3rem;
-  padding: 0.7em 2em;
+  font-size: 1.8rem;
+  padding: 0.6em 2em;
   border: none;
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: 0 2px 12px rgba(44,50,83,0.10);
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
   margin-top: 2em;
+  min-width: 140px;
+  min-height: 25px;
 }
 
 .startpage-btn:hover {

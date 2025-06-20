@@ -14,7 +14,25 @@ export default function StartPage() {
   
   return (
     <PhoneFrame>
-      <button className="startpage-btn" onClick={handleStartClick}>Start</button>
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        gap: '5rem',
+        marginTop: '-14rem',
+        marginBottom: '-5rem'
+      }}>
+        <img 
+          src="/assets/Title.png" 
+          alt="Title" 
+          style={{ 
+            maxWidth: '95%', 
+            height: 'auto',
+            marginBottom: '0.5rem'
+          }} 
+        />
+        <button className="startpage-btn" onClick={handleStartClick}>Start</button>
+      </div>
     </PhoneFrame>
   );
 }

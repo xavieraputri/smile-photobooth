@@ -118,29 +118,74 @@ export default function CameraPage({ setPhoto }) {
                 height: '100%', 
                 display: captured ? "block" : "none", 
                 borderRadius: '24px', 
-                marginBottom: '0.5rem', 
                 boxShadow: '0 2px 12px rgba(0,0,0,0.15)', 
                 background: '#000'
               }} />
             </div>
             <div style={{ width: '70%', display: 'flex', justifyContent: 'center', marginBottom: '0.2rem' }}>
               {!captured ? (
-                <button className="startpage-btn" onClick={takePhoto}>Take Photo</button>
+                <button 
+                  className="startpage-btn" 
+                  onClick={takePhoto}
+                  style={{
+                    fontSize: '1.5rem',
+                    padding: '0.7em 2em',
+                    minHeight: '25px'
+                  }}
+                >
+                  Take Photo
+                </button>
               ) : (
-                <button className="startpage-btn" onClick={retakePhoto}>Retake Photo</button>
+                <button 
+                  className="startpage-btn" 
+                  onClick={retakePhoto}
+                  style={{
+                    fontSize: '1.5rem',
+                    padding: '0.7em 2em',
+                    minHeight: '25px'
+                  }}
+                >
+                  Retake Photo
+                </button>
               )}
             </div>
             {/* Absolute positioned bottom buttons */}
             <button
               className="startpage-btn"
-              style={{ position: 'absolute', left: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+              style={{ 
+                position: 'absolute', 
+                left: '2.5%', 
+                bottom: '2.5%', 
+                width: '28%', 
+                minWidth: 90, 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                textAlign: 'center',
+                fontSize: '1.5rem',
+                padding: '0.7em 2em',
+                minHeight: '25px'
+              }}
               onClick={handleBackClick}
             >
               Back
             </button>
             <button
               className="startpage-btn"
-              style={{ position: 'absolute', right: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+              style={{ 
+                position: 'absolute', 
+                right: '2.5%', 
+                bottom: '2.5%', 
+                width: '28%', 
+                minWidth: 90, 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                textAlign: 'center',
+                fontSize: '1.5rem',
+                padding: '0.7em 2em',
+                minHeight: '25px'
+              }}
               onClick={finish}
               disabled={!captured}
             >

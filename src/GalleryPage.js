@@ -274,9 +274,9 @@ export default function GalleryPage({ setPhoto }) {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                fontSize: '1.2rem',
+                width: '35px',
+                height: '35px',
+                fontSize: '1.1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -295,9 +295,9 @@ export default function GalleryPage({ setPhoto }) {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                fontSize: '1.2rem',
+                width: '35px',
+                height: '35px',
+                fontSize: '1.1rem',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -320,25 +320,69 @@ export default function GalleryPage({ setPhoto }) {
                 onChange={handleFile}
                 style={{ display: 'none' }}
               />
-              <button className="startpage-btn" onClick={handleChooseClick}>
+              <button 
+                className="startpage-btn" 
+                onClick={handleChooseClick}
+                style={{
+                  fontSize: '1.5rem',
+                  padding: '0.7em 2em',
+                  minHeight: '25px'
+                }}
+              >
                 Choose
               </button>
             </>
           ) : (
-            <button className="startpage-btn" onClick={retakePhoto}>Re-choose</button>
+            <button 
+              className="startpage-btn" 
+              onClick={retakePhoto}
+              style={{
+                fontSize: '1.5rem',
+                padding: '0.7em 2em',
+                minHeight: '25px'
+              }}
+            >
+              Re-choose
+            </button>
           )}
         </div>
         {/* Absolute positioned bottom buttons */}
         <button
           className="startpage-btn"
-          style={{ position: 'absolute', left: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+          style={{ 
+            position: 'absolute', 
+            left: '2.5%', 
+            bottom: '2.5%', 
+            width: '28%', 
+            minWidth: 90, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textAlign: 'center',
+            fontSize: '1.5rem',
+            padding: '0.7em 2em',
+            minHeight: '25px'
+          }}
           onClick={handleBackClick}
         >
           Back
         </button>
         <button
           className="startpage-btn"
-          style={{ position: 'absolute', right: '2.5%', bottom: '2.5%', width: '28%', minWidth: 90, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+          style={{ 
+            position: 'absolute', 
+            right: '2.5%', 
+            bottom: '2.5%', 
+            width: '28%', 
+            minWidth: 90, 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textAlign: 'center',
+            fontSize: '1.5rem',
+            padding: '0.7em 2em',
+            minHeight: '25px'
+          }}
           onClick={finish}
           disabled={!selected}
         >

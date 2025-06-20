@@ -69,9 +69,39 @@ export default function FinalPage({ photo }) {
         />
       )}
       <div className="startpage-buttons-vertical">
-        <button className="startpage-btn" onClick={savePhoto}>Save</button>
-        <button className="startpage-btn" onClick={sharePhoto}>Share</button>
-        <button className="startpage-btn" onClick={handleRestartClick}>Restart</button>
+        <button 
+          className="startpage-btn" 
+          onClick={savePhoto}
+          style={{
+            fontSize: '1.5rem',
+            padding: '0.7em 2em',
+            minHeight: '25px'
+          }}
+        >
+          Save
+        </button>
+        <button 
+          className="startpage-btn" 
+          onClick={sharePhoto}
+          style={{
+            fontSize: '1.5rem',
+            padding: '0.7em 2em',
+            minHeight: '25px'
+          }}
+        >
+          Share
+        </button>
+        <button 
+          className="startpage-btn" 
+          onClick={handleRestartClick}
+          style={{
+            fontSize: '1.5rem',
+            padding: '0.7em 2em',
+            minHeight: '25px'
+          }}
+        >
+          Restart
+        </button>
       </div>
     </PhoneFrame>
   );
