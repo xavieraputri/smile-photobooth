@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
+
+body {
+  background: #faf7de; /* Cream color */
+  min-height: 100vh;
+  margin: 0;
+}
+
+.startpage-outer {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #faf7de;
+}
+
+.phone-frame {
+  position: relative;
+  width: 375px;
+  height: 750px;
+  max-width: 95vw;
+  max-height: 95vh;
+  background: #fff;
+  border-radius: 36px;
+  box-shadow: 0 8px 32px rgba(44,50,83,0.18), 0 1.5px 8px rgba(44,50,83,0.10);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.startpage-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.startpage-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Decorative asset positions inside phone-frame */
+.startpage-flipphone,
+.startpage-polaroid,
+.startpage-film-bg {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.decor-lovephone {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 90px;
+  z-index: 2;
+}
+
+.decor-discoribbon {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 48px;
+  z-index: 2;
+}
+
+.decor-redbutton {
+  position: absolute;
+  top: 110px;
+  right: 24px;
+  width: 38px;
+  z-index: 2;
+}
+
+.decor-pixelfolder {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  width: 70px;
+  z-index: 2;
+}
+
+.decor-flowerbutton {
+  position: absolute;
+  bottom: 110px;
+  left: 32px;
+  width: 48px;
+  z-index: 2;
+}
+
+.decor-clamblue {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 160px;
+  z-index: 2;
+}
+
+.decor-flipphone {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  width: 60px;
+  z-index: 2;
+}
+
+.decor-polaroid {
+  position: absolute;
+  top: 0;
+  left: 60px;
+  width: 160px;
+  z-index: 2;
+  transform: rotate(-8deg);
+}
+
+.decor-digitalcamera {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 110px;
+  z-index: 2;
+}
+
+.decor-pinkribbon {
+  position: absolute;
+  bottom: 18px;
+  right: 110px;
+  width: 38px;
+  z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .phone-frame {
+    width: 98vw;
+    height: 90vh;
+    min-width: 0;
+    min-height: 0;
+    border-radius: 18px;
+  }
+} 
